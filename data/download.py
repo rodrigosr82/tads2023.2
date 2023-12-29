@@ -1,7 +1,7 @@
 import yfinance as yf
 import pandas as pd
 
-def downloaddata (ticker:str) -> pd.DataFrame:
+def download_data (ticker:str) -> pd.DataFrame:
     
     """Download data from yahoo fiances
 
