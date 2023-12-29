@@ -1,20 +1,21 @@
-import yfinance as yf
+import plotly.express as px
 
-from plotnine import *
+from data.download import download_data
+
+data = download_data('CPLE3.SA')
+
+data[['Close']]
+data['SMA']= data['Close'].rolling(window = 9).mean()
+data['LMA']= data['Close'].rolling(window = 72).mean()
+
+px.line(
+    data.reset_index(),
+    x='Date', y=['Close', 'SMA','LMA'], title='CPLE3.SA',
+    labels={'Close':'Fechamento', 'Date':'Data'},
+    color_discrete_map= {'Close': 'black', 'SMA': 'blue', 'LMA': 'red'}
+)
 
 
-data = yf.download("BBAS3.SA")
+###plot_line_i('BBAS3.SA', 'CPLE3.SA')
 
-ggplot (
-    data = data.reset_index(),
-    mapping= aes(x = "Date", y = "Close")
-)+\
-    geom_line()+\
-    ggtitle("Dados históricos do BBAS3")+\
-    xlab("Data")+\
-    ylab("Fechamento")
-
-##############################################
-
-from data.download import downloaddata
 
